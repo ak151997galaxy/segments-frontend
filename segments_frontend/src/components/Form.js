@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
 import Filter from './Filter';  
 
 function Form() {
@@ -16,11 +17,17 @@ function Form() {
     const duplicate = [...filterGroup]
     duplicate.splice(filterIndex,1)
     setFilterGroup(duplicate)
-    // console.log(filterIndex, "filterIndex")
-    // console.log(filterGroup.splice(filterIndex, 1), "cdwrrrrcccccccccc");
-    // console.log(filterGroup, "fileeeeter")
-    // setFilterGroup(filterGroup => [...filterGroup.splice(filterIndex,1)])
-    // setFilterGroup(filterGroup.filter((item, index) => filterIndex !== index))
+  }
+
+  function submitSegment (e) {
+    e.preventDefult();
+    const url = "https://google.com"   // replace with original url
+    axios.post(url, {filterGroup}).then(response => {
+      console.log(response, "response")
+    })
+    .catch((error) => {
+      console.log(error, "error")
+    })
   }
 
   console.log(filterGroup, "filterGroup")
@@ -57,7 +64,7 @@ function Form() {
           )
         })}
         <br />
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" onSubmit={submitSegment}>
           Submit
         </Button>
       </form>
