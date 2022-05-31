@@ -1,33 +1,29 @@
 import React, { useState } from 'react';
 import { Button, Row, Col } from 'react-bootstrap';
-import Filter from './Filter';
+import Filter from './Filter';  
 
 function Form() {
-  const [rows, setRows] = useState([]);
-  const [count, setCount] = useState(0);
-  function segmentCreated() {
-    console.log('segment created');
-    //akshay bhai will do here................
-  }
-  function createFilter(e) {
-    e.preventDefault();
-    setCount(count + 1);
-    console.log('xxxxxxxxxxxxx', count);
-    setRows([...rows, count]);
+  const [filterGroup, setFilterGroup] = useState([]);
+
+  const addFilter = (e) => {
+    console.log("filter addd")
+    var filter = [...filterGroup]
+    filter.push([])
+    setFilterGroup(filter)
   }
 
-  const removeFilter = (e, value) => {
-    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaa', value, rows);
-    e.preventDefault();
-    var filteredArray = [];
-    for (var i = 0; i < rows.length; i++) {
-      if (rows[i] === value) {
-        continue;
-      }
-      filteredArray.push(rows[i]);
-    }
-    setRows(filteredArray);
-  };
+  const deleteFilter = (filterIndex) => {
+    const duplicate = [...filterGroup]
+    duplicate.splice(filterIndex,1)
+    setFilterGroup(duplicate)
+    // console.log(filterIndex, "filterIndex")
+    // console.log(filterGroup.splice(filterIndex, 1), "cdwrrrrcccccccccc");
+    // console.log(filterGroup, "fileeeeter")
+    // setFilterGroup(filterGroup => [...filterGroup.splice(filterIndex,1)])
+    // setFilterGroup(filterGroup.filter((item, index) => filterIndex !== index))
+  }
+
+  console.log(filterGroup, "filterGroup")
   return (
     <div
       style={{
@@ -36,7 +32,7 @@ function Form() {
         alignItems: 'center',
       }}
     >
-      <form onSubmit={segmentCreated}>
+      <form>
         <label style={{ paddingRight: '20px', paddingBottom: '20px' }}>
           Name:
         </label>
@@ -45,28 +41,20 @@ function Form() {
         <label style={{ paddingRight: '20px', paddingBottom: '20px' }}>
           Filter
         </label>
-        <Button variant="outline-info" onClick={createFilter}>
-          +
+        <Button variant="info" onClick={e => addFilter(e)}>
+          Add Filter
         </Button>
-        {rows.map((value, index) => {
+        {filterGroup.map((value, index)=>{
           return (
-            <Row key={value} style={{ paddingBottom: '20px' }}>
+            <Row key={index} style={{ paddingBottom: '20px' }}>
               <Col xs={10}>
-                <Filter 
-                  style={{ paddingTop: '20px', paddingBottom: '20px' }}
-                />
+                <Filter style={{ paddingTop: '20px', paddingBottom: '20px' }} filterGroup={filterGroup} setFilterGroup={setFilterGroup} filterIndex={index} key={index}/>
               </Col>
               <Col>
-                <Button
-                  variant="danger"
-                  type="submit"
-                  onClick={(e) => removeFilter(e, value)}
-                >
-                  Delete filter
-                </Button>
+                <Button variant="danger" onClick={() => deleteFilter(index)}>Delete filter</Button>
               </Col>
             </Row>
-          );
+          )
         })}
         <br />
         <Button variant="primary" type="submit">
@@ -78,3 +66,89 @@ function Form() {
 }
 
 export default Form;
+
+
+
+
+
+
+// import React, { useState } from 'react';
+// import { Button, Row, Col } from 'react-bootstrap';
+// import Filter from './Filter';
+
+// function Form() {
+//   const [rows, setRows] = useState([]);
+//   const [count, setCount] = useState(0);
+//   function segmentCreated(e) {
+//     e.preventDefault();
+//     console.log('segment created');
+//     //akshay bhai will do here................
+//     console.log(rows, "rows")
+//   }
+//   function createFilter(e) {
+//     e.preventDefault();
+//     setCount(count + 1);
+//     setRows([...rows, count]);
+//   }
+
+//   const removeFilter = (e, value) => {
+//     e.preventDefault();
+//     var filteredArray = [];
+//     for (var i = 0; i < rows.length; i++) {
+//       if (rows[i] === value) {
+//         continue;
+//       }
+//       filteredArray.push(rows[i]);
+//     }
+//     setRows(filteredArray);
+//   };
+//   return (
+//     <div
+//       style={{
+//         flexDirection: 'row',
+//         justifyContent: 'center',
+//         alignItems: 'center',
+//       }}
+//     >
+//       <form onSubmit={segmentCreated}>
+//         <label style={{ paddingRight: '20px', paddingBottom: '20px' }}>
+//           Name:
+//         </label>
+//         <input type="text" name="name" />
+//         <br />
+//         <label style={{ paddingRight: '20px', paddingBottom: '20px' }}>
+//           Filter
+//         </label>
+//         <Button variant="outline-info" onClick={createFilter}>
+//           +
+//         </Button>
+//         {rows.map((value, index) => {
+//           return (
+//             <Row key={value} style={{ paddingBottom: '20px' }}>
+//               <Col xs={10}>
+//                 <Filter 
+//                   style={{ paddingTop: '20px', paddingBottom: '20px' }}
+//                 />
+//               </Col>
+//               <Col>
+//                 <Button
+//                   variant="danger"
+//                   type="submit"
+//                   onClick={(e) => removeFilter(e, value)}
+//                 >
+//                   Delete filter
+//                 </Button>
+//               </Col>
+//             </Row>
+//           );
+//         })}
+//         <br />
+//         <Button variant="primary" type="submit" onSubmit={segmentCreated}>
+//           Submit
+//         </Button>
+//       </form>
+//     </div>
+//   );
+// }
+
+// export default Form;

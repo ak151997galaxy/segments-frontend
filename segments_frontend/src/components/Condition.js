@@ -9,7 +9,6 @@ function Condition(props) {
     setOperator(e);
   }
 
-  console.log(operator,"operator")
   const onDelete = (e, id) => {
     e.preventDefault();
     var filteredArray = [...props.attribute]
@@ -18,7 +17,6 @@ function Condition(props) {
   }
 
   const handleChange = (value) =>{
-    console.log(value.target.value, "value")
     setInputValue(value.target.value)
   }
   return (
@@ -50,7 +48,7 @@ function Condition(props) {
           <Col xs={1} md={4}>
             <input onChange={e => handleChange(e)}></input>
           </Col>
-          <Col>
+          <Col xs={1} md={1}>
             <Button variant="danger" type="submit" onClick={e => onDelete(e, props.id)}>Delete</Button>
           </Col>
         </Row>

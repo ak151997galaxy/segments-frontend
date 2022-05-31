@@ -13,7 +13,7 @@ function App() {
       <h1 style={{ textAlign: 'center', textAlignVertical: 'center' }}>
         Create Segment
       </h1>
-      <Form />
+      <Form/>
     </div>
   );
 }
