@@ -1,18 +1,24 @@
 import React, { useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
-import { Row, Col, Container } from 'react-bootstrap';
+import { Row, Col, Container, Button } from 'react-bootstrap';
 
 function Condition(props) {
   const [operator, setOperator] = useState('Select condition');
   function createOperator(e) {
     setOperator(e);
   }
+  const onDelete = (e, id) => {
+    e.preventDefault();
+    var filteredArray = [...props.attribute]
+    filteredArray.splice(id, 1)
+    props.setAttribute(filteredArray)
+  }
   return (
     <div>
       <Container>
-        <Row className="show-grid">
-          <Col xs={1} md={4}>
-            {props.attribute}
+        <Row className="show-grid" key={props.id}>
+          <Col xs={1} md={3}>
+            {props.value}
           </Col>
           <Col xs={4} md={4}>
             <Dropdown onSelect={createOperator}>
@@ -35,6 +41,9 @@ function Condition(props) {
           </Col>
           <Col xs={1} md={4}>
             <input></input>
+          </Col>
+          <Col>
+            <Button variant="danger" type="submit" onClick={e => onDelete(e, props.id)}>Delete</Button>
           </Col>
         </Row>
       </Container>

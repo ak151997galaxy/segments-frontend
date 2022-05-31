@@ -7,6 +7,7 @@ function Filter() {
   function createCondition(e) {
     setAttribute([...attribute, e]);
   }
+
   return (
     <div>
       <Dropdown style={{ paddingTop: '20px', paddingBottom: '20px' }} onSelect={createCondition}>
@@ -24,7 +25,7 @@ function Filter() {
         </Dropdown.Menu>
       </Dropdown>
       {attribute.map((value, index) => {
-        return <Condition attribute={attribute[index]} key={index} />;
+        return <Condition attribute={attribute} setAttribute={setAttribute} id={index} value={attribute[index]} key={index} />;
       })}
     </div>
   );

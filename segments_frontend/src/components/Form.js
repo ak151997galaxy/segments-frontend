@@ -3,14 +3,25 @@ import { Button } from 'react-bootstrap';
 import Filter from './Filter';
 
 function Form() {
-  const [rows, setRows] = useState(0);
+  const [rows, setRows] = useState([]);
+
   function segmentCreated() {
     console.log('segment created');
     //akshay bhai will do here................
   }
   function createFilter(e) {
     e.preventDefault();
-    setRows(rows + 1);
+    setRows([...rows, rows.length+1]);
+  }
+
+
+  const removeFilter = (e, id) => {
+    e.preventDefault();
+    console.log(id, "comingggg")
+    var filteredArray = [...rows]
+    filteredArray.splice(id, 1)
+    console.log(filteredArray, "filteredArray")
+    setRows(filteredArray)
   }
   return (
     <div
@@ -32,12 +43,18 @@ function Form() {
         <Button variant="outline-info" onClick={createFilter}>
           +
         </Button>
-        {Array.apply(0, Array(rows)).map(function (x, i) {
+        {rows.map((value, index) => {
+          console.log(value , index, " value    index ")
           return (
-            <Filter
-              style={{ paddingTop: '20px', paddingBottom: '20px' }}
-              key={i}
-            />
+            <div key={index}>
+              <Filter
+                style={{ paddingTop: '20px', paddingBottom: '20px' }}
+                
+              />
+              <Button variant="danger" type="submit" onClick={(e)=>removeFilter(e,index)}>
+                Delete filter
+              </Button>
+            </div>
           );
         })}
         <br />
