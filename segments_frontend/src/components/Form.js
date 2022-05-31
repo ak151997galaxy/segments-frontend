@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import Filter from './Filter';
 
 function Form() {
   const [rows, setRows] = useState([]);
-
+  const [count, setCount] = useState(0);
   function segmentCreated() {
     console.log('segment created');
-    //akshay bhai will do here................  
+    //akshay bhai will do here................
   }
   function createFilter(e) {
     e.preventDefault();
-    // setRows([...rows, rows.length+1]);
-    let addFilter = rows.slice();
-    addFilter.push([]);
-    setRows(addFilter)
+    setCount(count + 1);
+    console.log('xxxxxxxxxxxxx', count);
+    setRows([...rows, count]);
   }
 
-  console.log(rows, "rows")
-
-  const removeFilter = (e, id) => {
+  const removeFilter = (e, value) => {
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaa', value, rows);
     e.preventDefault();
-    console.log(id, "comingggg", e)
-    // var filteredArray = [...rows]
-    // filteredArray.splice(id, 1)
-    // console.log(filteredArray, "filteredArray")
-    // setRows(filteredArray)
-  }
-
+    var filteredArray = [];
+    for (var i = 0; i < rows.length; i++) {
+      if (rows[i] === value) {
+        continue;
+      }
+      filteredArray.push(rows[i]);
+    }
+    setRows(filteredArray);
+  };
   return (
     <div
       style={{
@@ -49,16 +49,25 @@ function Form() {
           +
         </Button>
         {rows.map((value, index) => {
-          console.log(value , index, " value    index ")
           return (
-            <div key={index}>
-              <Filter
-                style={{ paddingTop: '20px', paddingBottom: '20px' }} rows={rows} setRows={setRows} filterId={index}
-              />
-              {/* <Button variant="danger" type="submit" onClick={e => removeFilter(e, index)}>
-                Delete filter
-              </Button> */}
-            </div>
+            <Row style={{ paddingBottom: '20px' }}>
+              <Col xs={10}>
+                <Filter
+                  key={value}
+                  style={{ paddingTop: '20px', paddingBottom: '20px' }}
+                />
+              </Col>
+              <Col>
+                <Button
+                  key={value}
+                  variant="danger"
+                  type="submit"
+                  onClick={(e) => removeFilter(e, value)}
+                >
+                  Delete filter
+                </Button>
+              </Col>
+            </Row>
           );
         })}
         <br />
