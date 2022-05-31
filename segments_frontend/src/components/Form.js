@@ -50,16 +50,14 @@ function Form() {
         </Button>
         {rows.map((value, index) => {
           return (
-            <Row style={{ paddingBottom: '20px' }}>
+            <Row key={value} style={{ paddingBottom: '20px' }}>
               <Col xs={10}>
-                <Filter
-                  key={value}
+                <Filter 
                   style={{ paddingTop: '20px', paddingBottom: '20px' }}
                 />
               </Col>
               <Col>
                 <Button
-                  key={value}
                   variant="danger"
                   type="submit"
                   onClick={(e) => removeFilter(e, value)}
