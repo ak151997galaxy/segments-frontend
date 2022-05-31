@@ -7,22 +7,27 @@ function Form() {
 
   function segmentCreated() {
     console.log('segment created');
-    //akshay bhai will do here................
+    //akshay bhai will do here................  
   }
   function createFilter(e) {
     e.preventDefault();
-    setRows([...rows, rows.length+1]);
+    // setRows([...rows, rows.length+1]);
+    let addFilter = rows.slice();
+    addFilter.push([]);
+    setRows(addFilter)
   }
 
+  console.log(rows, "rows")
 
   const removeFilter = (e, id) => {
     e.preventDefault();
-    console.log(id, "comingggg")
-    var filteredArray = [...rows]
-    filteredArray.splice(id, 1)
-    console.log(filteredArray, "filteredArray")
-    setRows(filteredArray)
+    console.log(id, "comingggg", e)
+    // var filteredArray = [...rows]
+    // filteredArray.splice(id, 1)
+    // console.log(filteredArray, "filteredArray")
+    // setRows(filteredArray)
   }
+
   return (
     <div
       style={{
@@ -48,12 +53,11 @@ function Form() {
           return (
             <div key={index}>
               <Filter
-                style={{ paddingTop: '20px', paddingBottom: '20px' }}
-                
+                style={{ paddingTop: '20px', paddingBottom: '20px' }} rows={rows} setRows={setRows} filterId={index}
               />
-              <Button variant="danger" type="submit" onClick={(e)=>removeFilter(e,index)}>
+              {/* <Button variant="danger" type="submit" onClick={e => removeFilter(e, index)}>
                 Delete filter
-              </Button>
+              </Button> */}
             </div>
           );
         })}

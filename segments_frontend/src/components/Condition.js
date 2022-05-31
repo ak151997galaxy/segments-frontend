@@ -4,14 +4,22 @@ import { Row, Col, Container, Button } from 'react-bootstrap';
 
 function Condition(props) {
   const [operator, setOperator] = useState('Select condition');
+  const [inputValue, setInputValue] = useState();
   function createOperator(e) {
     setOperator(e);
   }
+
+  console.log(operator,"operator")
   const onDelete = (e, id) => {
     e.preventDefault();
     var filteredArray = [...props.attribute]
     filteredArray.splice(id, 1)
     props.setAttribute(filteredArray)
+  }
+
+  const handleChange = (value) =>{
+    console.log(value.target.value, "value")
+    setInputValue(value.target.value)
   }
   return (
     <div>
@@ -40,7 +48,7 @@ function Condition(props) {
             </Dropdown>
           </Col>
           <Col xs={1} md={4}>
-            <input></input>
+            <input onChange={e => handleChange(e)}></input>
           </Col>
           <Col>
             <Button variant="danger" type="submit" onClick={e => onDelete(e, props.id)}>Delete</Button>
